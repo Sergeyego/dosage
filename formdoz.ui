@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>FormDoz</class>
+ <widget class="QWidget" name="FormDoz">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>855</width>
+    <height>634</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_4">
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_2">
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>С</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="DbDateEdit" name="dateEditBeg"/>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>По</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="DbDateEdit" name="dateEditEnd"/>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <widget class="QRadioButton" name="radioButtonDate">
+         <property name="text">
+          <string>По дате</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QRadioButton" name="radioButtonNam">
+         <property name="text">
+          <string>По наименованию</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <widget class="QToolButton" name="toolButtonUpd">
+       <property name="text">
+        <string>Обновить</string>
+       </property>
+       <property name="toolButtonStyle">
+        <enum>Qt::ToolButtonTextBesideIcon</enum>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QSplitter" name="splitter">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <widget class="DbViewer" name="tableViewDoz">
+      <property name="selectionMode">
+       <enum>QAbstractItemView::SingleSelection</enum>
+      </property>
+      <property name="selectionBehavior">
+       <enum>QAbstractItemView::SelectRows</enum>
+      </property>
+     </widget>
+     <widget class="QWidget" name="">
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="DbViewer" name="tableViewDozData"/>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout">
+         <item>
+          <layout class="QVBoxLayout" name="verticalLayout">
+           <item>
+            <widget class="QToolButton" name="toolButtonDelete">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Удалить</string>
+             </property>
+             <property name="toolButtonStyle">
+              <enum>Qt::ToolButtonTextBesideIcon</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QToolButton" name="toolButtonConfirm">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Принять</string>
+             </property>
+             <property name="toolButtonStyle">
+              <enum>Qt::ToolButtonTextBesideIcon</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QToolButton" name="toolButtonNew">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Новая</string>
+             </property>
+             <property name="toolButtonStyle">
+              <enum>Qt::ToolButtonTextBesideIcon</enum>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QToolButton" name="toolButtonSave">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string>Сохранить в файл</string>
+             </property>
+             <property name="toolButtonStyle">
+              <enum>Qt::ToolButtonTextBesideIcon</enum>
+             </property>
+             <property name="autoRaise">
+              <bool>false</bool>
+             </property>
+             <property name="arrowType">
+              <enum>Qt::NoArrow</enum>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </item>
+         <item>
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>DbViewer</class>
+   <extends>QTableView</extends>
+   <header>db/dbviewer.h</header>
+  </customwidget>
+  <customwidget>
+   <class>DbDateEdit</class>
+   <extends>QDateEdit</extends>
+   <header>db/dbdateedit.h</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

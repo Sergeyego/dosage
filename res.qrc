@@ -1,0 +1,6 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/ico.ico</file>
+        <file>images/simb_labl.png</file>
+    </qresource>
+</RCC>

@@ -6,16 +6,111 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>1024</width>
+    <height>700</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Дозирование компонентов</string>
   </property>
-  <widget class="QWidget" name="centralwidget"/>
-  <widget class="QMenuBar" name="menubar"/>
-  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>-1</number>
+      </property>
+      <property name="tabsClosable">
+       <bool>true</bool>
+      </property>
+      <property name="movable">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1024</width>
+     <height>25</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menu">
+    <property name="title">
+     <string>Дозировка</string>
+    </property>
+    <addaction name="actionDoz"/>
+   </widget>
+   <widget class="QMenu" name="menu_2">
+    <property name="title">
+     <string>Справочники</string>
+    </property>
+    <addaction name="actionMatr"/>
+    <addaction name="actionGroups"/>
+   </widget>
+   <widget class="QMenu" name="menu_3">
+    <property name="title">
+     <string>Отчеты</string>
+    </property>
+    <addaction name="actionRepDoz"/>
+    <addaction name="actionRepPack"/>
+   </widget>
+   <widget class="QMenu" name="menu_4">
+    <property name="title">
+     <string>Засыпка</string>
+    </property>
+    <addaction name="actionBackfill"/>
+    <addaction name="actionBackfillHist"/>
+   </widget>
+   <addaction name="menu"/>
+   <addaction name="menu_4"/>
+   <addaction name="menu_2"/>
+   <addaction name="menu_3"/>
+  </widget>
+  <action name="actionDoz">
+   <property name="text">
+    <string>Партии дозировки</string>
+   </property>
+  </action>
+  <action name="actionDozNew">
+   <property name="text">
+    <string>Новая</string>
+   </property>
+  </action>
+  <action name="actionMatr">
+   <property name="text">
+    <string>Компоненты</string>
+   </property>
+  </action>
+  <action name="actionRepPack">
+   <property name="text">
+    <string>Расход компонентов на упакованные электроды</string>
+   </property>
+  </action>
+  <action name="actionGroups">
+   <property name="text">
+    <string>Группы электродов</string>
+   </property>
+  </action>
+  <action name="actionBackfill">
+   <property name="text">
+    <string>Засыпать компоненты</string>
+   </property>
+  </action>
+  <action name="actionBackfillHist">
+   <property name="text">
+    <string>История засыпки</string>
+   </property>
+  </action>
+  <action name="actionRepDoz">
+   <property name="text">
+    <string>Расход компонентов на линии дозировки</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>

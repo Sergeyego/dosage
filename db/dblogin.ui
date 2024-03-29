@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>DbLogin</class>
+ <widget class="QDialog" name="DbLogin">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>484</width>
+    <height>249</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>484</width>
+    <height>0</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>484</width>
+    <height>261</height>
+   </size>
+  </property>
+  <property name="sizeGripEnabled">
+   <bool>false</bool>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout_3" stretch="2,1">
+   <property name="sizeConstraint">
+    <enum>QLayout::SetFixedSize</enum>
+   </property>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout_3">
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout_2">
+       <item>
+        <widget class="QLabel" name="labelImg">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>170</width>
+           <height>80</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>170</width>
+           <height>80</height>
+          </size>
+         </property>
+         <property name="scaledContents">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QToolButton" name="cmdShowOpt">
+         <property name="text">
+          <string>дополнительно -&gt;</string>
+         </property>
+         <property name="checkable">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer_2">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <layout class="QGridLayout" name="gridLayout">
+         <item row="0" column="0">
+          <widget class="QLabel" name="label">
+           <property name="text">
+            <string>Пользователь</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QLineEdit" name="edtUser"/>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>Пароль</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QLineEdit" name="edtPasswd">
+           <property name="echoMode">
+            <enum>QLineEdit::Password</enum>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <layout class="QHBoxLayout" name="horizontalLayout_2">
+         <item>
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
+           </property>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
+           </property>
+          </spacer>
+         </item>
+         <item>
+          <widget class="QPushButton" name="cmdConnect">
+           <property name="text">
+            <string>Вход</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>дополнительные параметры</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2">
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="edtHost"/>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_4">
+        <property name="text">
+         <string>Хост</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QSpinBox" name="edtPort">
+        <property name="maximum">
+         <number>65535</number>
+        </property>
+        <property name="value">
+         <number>5432</number>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_5">
+        <property name="text">
+         <string>Порт</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <tabstops>
+  <tabstop>edtUser</tabstop>
+  <tabstop>edtPasswd</tabstop>
+  <tabstop>cmdConnect</tabstop>
+  <tabstop>cmdShowOpt</tabstop>
+  <tabstop>edtHost</tabstop>
+  <tabstop>edtPort</tabstop>
+ </tabstops>
+ <resources/>
+ <connections/>
+</ui>
