@@ -59,6 +59,7 @@ Styles::Styles(CreateFlag flag)
     if (flag == F_NewFromScratch) {
         //Add default Format
         Format defaultFmt;
+        defaultFmt.setFontSize(10);
         addXfFormat(defaultFmt);
 
         //Add another fill format

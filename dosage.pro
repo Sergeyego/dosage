@@ -1,4 +1,4 @@
-QT       += core gui sql
+QT       += core gui sql network xml
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -19,8 +19,10 @@ SOURCES += \
     db/dbrelationeditdialog.cpp \
     db/dbtablemodel.cpp \
     db/dbviewer.cpp \
+    db/dbxlsx.cpp \
     db/executor.cpp \
     db/tablemodel.cpp \
+    dialognew.cpp \
     formdoz.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -42,8 +44,10 @@ HEADERS += \
     db/dbrelationeditdialog.h \
     db/dbtablemodel.h \
     db/dbviewer.h \
+    db/dbxlsx.h \
     db/executor.h \
     db/tablemodel.h \
+    dialognew.h \
     formdoz.h \
     mainwindow.h \
     olap/axiswidget.h \
@@ -58,6 +62,7 @@ HEADERS += \
 FORMS += \
     db/dblogin.ui \
     db/dbrelationeditdialog.ui \
+    dialognew.ui \
     formdoz.ui \
     mainwindow.ui \
     olap/axiswidget.ui \

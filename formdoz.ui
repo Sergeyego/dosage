@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>855</width>
-    <height>634</height>
+    <width>853</width>
+    <height>632</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -101,7 +101,7 @@
        <enum>QAbstractItemView::SelectRows</enum>
       </property>
      </widget>
-     <widget class="QWidget" name="">
+     <widget class="QWidget" name="layoutWidget">
       <layout class="QVBoxLayout" name="verticalLayout_2">
        <item>
         <widget class="DbViewer" name="tableViewDozData"/>

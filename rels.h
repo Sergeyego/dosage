@@ -2,6 +2,8 @@
 #define RELS_H
 
 #include <QObject>
+#include <QNetworkAccessManager>
+#include <QNetworkReply>
 #include "db/dbtablemodel.h"
 
 class Rels : public QObject
@@ -12,6 +14,9 @@ public:
     DbSqlRelation *relRcp;
     DbSqlRelation *relMark;
     DbSqlRelation *relCex;
+    DbSqlRelation *relCmp;
+    DbSqlRelation *relBunk;
+    bool sendRequest(QString path, QString req, const QByteArray &data, QByteArray &respData);
 
 protected:
     explicit Rels(QObject *parent = 0);
