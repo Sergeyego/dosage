@@ -23,9 +23,11 @@ SOURCES += \
     db/executor.cpp \
     db/tablemodel.cpp \
     dialognew.cpp \
+    formbackfill.cpp \
     formdoz.cpp \
     main.cpp \
     mainwindow.cpp \
+    modelro.cpp \
     olap/axiswidget.cpp \
     olap/cubewidget.cpp \
     olap/cubic.cpp \
@@ -48,8 +50,10 @@ HEADERS += \
     db/executor.h \
     db/tablemodel.h \
     dialognew.h \
+    formbackfill.h \
     formdoz.h \
     mainwindow.h \
+    modelro.h \
     olap/axiswidget.h \
     olap/cubewidget.h \
     olap/cubic.h \
@@ -63,6 +67,7 @@ FORMS += \
     db/dblogin.ui \
     db/dbrelationeditdialog.ui \
     dialognew.ui \
+    formbackfill.ui \
     formdoz.ui \
     mainwindow.ui \
     olap/axiswidget.ui \

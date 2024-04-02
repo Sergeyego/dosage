@@ -11,13 +11,11 @@ Rels *Rels::instance()
 
 bool Rels::sendRequest(QString path, QString req, const QByteArray &data, QByteArray &respData)
 {
-    //QString authData = user+":"+password;
     QNetworkRequest request(QUrl("http://192.168.1.10:7000/"+path));
     request.setRawHeader("Accept","application/xml");
     request.setRawHeader("Accept-Charset", "UTF-8");
     request.setRawHeader("Content-Type", "application/xml");
     request.setRawHeader("User-Agent", "Appszsm");
-    //request.setRawHeader("Authorization", "Basic "+authData.toUtf8().toBase64());
     QEventLoop loop;
     QNetworkAccessManager man;
     connect(&man,SIGNAL(finished(QNetworkReply*)),&loop,SLOT(quit()));
@@ -37,7 +35,7 @@ bool Rels::sendRequest(QString path, QString req, const QByteArray &data, QByteA
     respData=reply->readAll();
     bool ok=(reply->error()==QNetworkReply::NoError);
     if (!ok){
-         QMessageBox::critical(nullptr,tr("Ошибка"),reply->errorString()+"\n"+reply->readAll(),QMessageBox::Cancel);
+         QMessageBox::critical(nullptr,tr("Ошибка"),reply->errorString()+"\n"+respData,QMessageBox::Cancel);
     }
     reply->deleteLater();
     return ok;
@@ -56,6 +54,7 @@ Rels::Rels(QObject *parent) : QObject(parent)
     relCex = new DbSqlRelation("bunk_cex","id","nam",this);
     relCex->setSort("id desc");
     relCex->setFilter("bunk_cex.en=true");
+    relCex->model()->setAsync(false);
 
     relMark = new DbSqlRelation("elrtr","id","marka",this);
     relMark->setSort("marka");
@@ -64,5 +63,11 @@ Rels::Rels(QObject *parent) : QObject(parent)
     relBunk = new DbSqlRelation("bunk","id","numer",this);
     relBunk->setSort("bunk.nomer");
     relBunk->setFilter("bunk.id=0 or bunk.is_tiny=0");
+
+    relGrp = new DbSqlRelation("el_types","id","nam",this);
+    relGrp->setSort("el_types.nam");
+
+    relOp = new DbSqlRelation("bunk_op","id","nam",this);
+    relOp->setSort("bunk_op.id");
 }
 

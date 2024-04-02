@@ -16,6 +16,8 @@ public:
     DbSqlRelation *relCex;
     DbSqlRelation *relCmp;
     DbSqlRelation *relBunk;
+    DbSqlRelation *relGrp;
+    DbSqlRelation *relOp;
     bool sendRequest(QString path, QString req, const QByteArray &data, QByteArray &respData);
 
 protected:

@@ -8,6 +8,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 
     actAction(ui->actionDoz,&MainWindow::newFormDoz);
+    actAction(ui->actionBackfill,&MainWindow::newFormBackfill);
 
     loadSettings();
     connect(ui->tabWidget,SIGNAL(tabCloseRequested(int)),this,SLOT(closeTab(int)));
@@ -28,6 +29,13 @@ void MainWindow::newFormDoz()
 {
     if (!exist(sender())){
         addSubWindow(new FormDoz(),sender());
+    }
+}
+
+void MainWindow::newFormBackfill()
+{
+    if (!exist(sender())){
+        addSubWindow(new FormBackfill(),sender());
     }
 }
 

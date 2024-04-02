@@ -24,7 +24,10 @@ private:
     int new_id;
     TableModel *modelRcp;
     TableModel *modelRcpData;
+    TableModel *modelDozData;
     void getRcp();
+    QString getXmlVal(QDomElement &el, QString nam);
+    QDomElement newXmlElement(QString nam, QString val, QDomDocument *doc);
 
 
 private slots:
@@ -32,6 +35,7 @@ private slots:
     void writeRcp();
     void escRcp();
     void lock(bool b);
+    void updRcpData(QModelIndex index);
 };
 
 #endif // DIALOGNEW_H
