@@ -27,7 +27,7 @@ bool Rels::sendRequest(QString path, QString req, const QByteArray &data, QByteA
     } else if (req=="DELETE"){
         reply=man.deleteResource(request);
     } else {
-        reply=man.sendCustomRequest(request,req.toUtf8(),data);
+        reply=man.sendCustomRequest(request,req.toUtf8()/*,data*/);
     }
     if (!reply->isFinished()){
         loop.exec();
