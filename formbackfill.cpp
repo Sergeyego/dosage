@@ -86,6 +86,9 @@ void FormBackfill::updLoad()
     int id_cex=ui->comboBoxCex->getCurrentData().val.toInt();
     modelLoadBunk->refresh(ui->dateEditBeg->date(), ui->dateEditEnd->date(),id_cex);
     updStatTime();
+    if (sender()==ui->pushButtonUpd){
+        modelLoadBunk->refreshRelsModel();
+    }
 }
 
 void FormBackfill::save()

@@ -5,6 +5,9 @@
 #include <QSettings>
 #include "formdoz.h"
 #include "formbackfill.h"
+#include "formbackfillhist.h"
+#include "formcomp.h"
+#include "formgroup.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -22,6 +25,9 @@ private slots:
     void closeTab(int index);
     void newFormDoz();
     void newFormBackfill();
+    void newFormBackfillHist();
+    void newFormComp();
+    void newFormGroup();
 
 private:
     Ui::MainWindow *ui;

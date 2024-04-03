@@ -18,6 +18,7 @@ public:
     DbSqlRelation *relBunk;
     DbSqlRelation *relGrp;
     DbSqlRelation *relOp;
+    DbSqlRelation *relCmpType;
     bool sendRequest(QString path, QString req, const QByteArray &data, QByteArray &respData);
 
 protected:

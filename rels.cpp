@@ -50,6 +50,9 @@ Rels::Rels(QObject *parent) : QObject(parent)
 
     relCmp = new DbSqlRelation("matr","id","nam",this);
     relCmp->setSort("nam");
+    QStringList header;
+    header<<"id"<<tr("Компонент")<<"filter";
+    relCmp->model()->originalModel()->setHeader(header);
 
     relCex = new DbSqlRelation("bunk_cex","id","nam",this);
     relCex->setSort("id desc");
@@ -69,5 +72,8 @@ Rels::Rels(QObject *parent) : QObject(parent)
 
     relOp = new DbSqlRelation("bunk_op","id","nam",this);
     relOp->setSort("bunk_op.id");
+
+    relCmpType = new DbSqlRelation("matr_type","id","nam",this);
+    relCmpType->setSort("matr_type.nam");
 }
 

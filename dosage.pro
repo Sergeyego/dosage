@@ -24,7 +24,10 @@ SOURCES += \
     db/tablemodel.cpp \
     dialognew.cpp \
     formbackfill.cpp \
+    formbackfillhist.cpp \
+    formcomp.cpp \
     formdoz.cpp \
+    formgroup.cpp \
     main.cpp \
     mainwindow.cpp \
     modelro.cpp \
@@ -51,7 +54,10 @@ HEADERS += \
     db/tablemodel.h \
     dialognew.h \
     formbackfill.h \
+    formbackfillhist.h \
+    formcomp.h \
     formdoz.h \
+    formgroup.h \
     mainwindow.h \
     modelro.h \
     olap/axiswidget.h \
@@ -68,7 +74,10 @@ FORMS += \
     db/dbrelationeditdialog.ui \
     dialognew.ui \
     formbackfill.ui \
+    formbackfillhist.ui \
+    formcomp.ui \
     formdoz.ui \
+    formgroup.ui \
     mainwindow.ui \
     olap/axiswidget.ui \
     olap/cubewidget.ui \

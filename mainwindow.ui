@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1024</width>
-    <height>700</height>
+    <width>1022</width>
+    <height>698</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -35,7 +35,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1024</width>
+     <width>1022</width>
      <height>25</height>
     </rect>
    </property>
@@ -49,7 +49,7 @@
     <property name="title">
      <string>Справочники</string>
     </property>
-    <addaction name="actionMatr"/>
+    <addaction name="actionComp"/>
     <addaction name="actionGroups"/>
    </widget>
    <widget class="QMenu" name="menu_3">
@@ -81,7 +81,7 @@
     <string>Новая</string>
    </property>
   </action>
-  <action name="actionMatr">
+  <action name="actionComp">
    <property name="text">
     <string>Компоненты</string>
    </property>
