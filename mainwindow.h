@@ -8,6 +8,8 @@
 #include "formbackfillhist.h"
 #include "formcomp.h"
 #include "formgroup.h"
+#include "formrepdoz.h"
+#include "formreppack.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -28,6 +30,8 @@ private slots:
     void newFormBackfillHist();
     void newFormComp();
     void newFormGroup();
+    void newFormRepDoz();
+    void newFormRepPack();
 
 private:
     Ui::MainWindow *ui;

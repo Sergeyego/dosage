@@ -28,6 +28,8 @@ SOURCES += \
     formcomp.cpp \
     formdoz.cpp \
     formgroup.cpp \
+    formrepdoz.cpp \
+    formreppack.cpp \
     main.cpp \
     mainwindow.cpp \
     modelro.cpp \
@@ -58,6 +60,8 @@ HEADERS += \
     formcomp.h \
     formdoz.h \
     formgroup.h \
+    formrepdoz.h \
+    formreppack.h \
     mainwindow.h \
     modelro.h \
     olap/axiswidget.h \
@@ -78,6 +82,8 @@ FORMS += \
     formcomp.ui \
     formdoz.ui \
     formgroup.ui \
+    formrepdoz.ui \
+    formreppack.ui \
     mainwindow.ui \
     olap/axiswidget.ui \
     olap/cubewidget.ui \
