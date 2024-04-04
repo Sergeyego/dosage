@@ -5,6 +5,7 @@
 #include <modelro.h>
 #include <QProgressDialog>
 #include "olap/cubewidget.h"
+#include "formreport.h"
 
 namespace Ui {
 class FormRepPack;

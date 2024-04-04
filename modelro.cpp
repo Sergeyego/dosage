@@ -11,7 +11,7 @@ QVariant ModelRo::data(const QModelIndex &item, int role) const
     QVariant::Type type=origData.type();
     if (role==Qt::DisplayRole){
         if (type==QVariant::Double){
-            return (origData.isNull()) ? QString("") : QLocale().toString(origData.toDouble(),'f',mdecimal.value(item.column(),dec));
+            return (origData.isNull() || origData==0) ? QString("") : QLocale().toString(origData.toDouble(),'f',mdecimal.value(item.column(),dec));
         } else if (type==QVariant::Date){
             return (origData.isNull()) ? QString("") : origData.toDate().toString("dd.MM.yy");
         } else if (type==QVariant::DateTime){

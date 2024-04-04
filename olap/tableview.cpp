@@ -214,5 +214,5 @@ void TableView::remove()
 
 void TableView::saveXLSX()
 {
-    save("");
+    save(this->windowTitle());
 }

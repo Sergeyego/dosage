@@ -8,6 +8,8 @@ FormRepDoz::FormRepDoz(QWidget *parent) :
     ui->setupUi(this);
     ui->dateEditBeg->setDate(QDate::currentDate().addDays(-QDate::currentDate().day()+1));
     ui->dateEditEnd->setDate(QDate::currentDate());
+    ui->pushButtonUpd->setIcon(this->style()->standardIcon(QStyle::SP_BrowserReload));
+    ui->pushButtonSave->setIcon(this->style()->standardIcon(QStyle::SP_DialogSaveButton));
 
     QStringList header;
     header<<tr("Компонент")<<tr("Партия")<<tr("Рецепт., кг")<<tr("Фактич., кг");
