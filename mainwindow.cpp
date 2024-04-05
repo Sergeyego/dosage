@@ -10,10 +10,12 @@ MainWindow::MainWindow(QWidget *parent)
     actAction(ui->actionDoz,&MainWindow::newFormDoz);
     actAction(ui->actionBackfill,&MainWindow::newFormBackfill);
     actAction(ui->actionBackfillHist,&MainWindow::newFormBackfillHist);
+    actAction(ui->actionOst,&MainWindow::newFormOst);
     actAction(ui->actionComp,&MainWindow::newFormComp);
     actAction(ui->actionGroups,&MainWindow::newFormGroup);
     actAction(ui->actionRepDoz,&MainWindow::newFormRepDoz);
     actAction(ui->actionRepPack,&MainWindow::newFormRepPack);
+    actAction(ui->actionRepBunk,&MainWindow::newFormRepBunk);
 
     loadSettings();
     connect(ui->tabWidget,SIGNAL(tabCloseRequested(int)),this,SLOT(closeTab(int)));
@@ -51,6 +53,13 @@ void MainWindow::newFormBackfillHist()
     }
 }
 
+void MainWindow::newFormOst()
+{
+    if (!exist(sender())){
+        addSubWindow(new FormOst(),sender());
+    }
+}
+
 void MainWindow::newFormComp()
 {
     if (!exist(sender())){
@@ -76,6 +85,13 @@ void MainWindow::newFormRepPack()
 {
     if (!exist(sender())){
         addSubWindow(new FormRepPack(),sender());
+    }
+}
+
+void MainWindow::newFormRepBunk()
+{
+    if (!exist(sender())){
+        addSubWindow(new FormRepBunk(),sender());
     }
 }
 

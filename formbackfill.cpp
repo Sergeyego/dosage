@@ -48,8 +48,8 @@ FormBackfill::FormBackfill(QWidget *parent) :
     ui->tableViewLoad->setColumnWidth(5,70);
     ui->tableViewLoad->setColumnWidth(6,120);
     ui->tableViewLoad->setColumnWidth(7,100);
-    //ui->tableViewLoad->setColumnWidth(8,120);
-    ui->tableViewLoad->setColumnHidden(8,true);
+    ui->tableViewLoad->setColumnWidth(8,90);
+    ui->tableViewLoad->setColumnHidden(9,true);
 
     connect(ui->pushButtonUpdStatTime,SIGNAL(clicked(bool)),this,SLOT(updStatTime()));
     connect(ui->pushButtonUpdStat,SIGNAL(clicked(bool)),this,SLOT(updStat()));
@@ -131,6 +131,7 @@ ModelLoadBunk::ModelLoadBunk(QObject *parent): DbTableModel("bunk_comp",parent)
     addColumn("parti",QString::fromUtf8("Партия"));
     addColumn("id_grp",QString::fromUtf8("Группа"),Rels::instance()->relGrp);
     addColumn("id_op",QString::fromUtf8("Операция"),Rels::instance()->relOp);
+    addColumn("kvo",QString::fromUtf8("Кол-во, кг"));
     addColumn("id_cex",QString::fromUtf8("Цех"),Rels::instance()->relCex);
     setSort("bunk_comp.dat, bunk_comp.tm");
 
@@ -140,7 +141,7 @@ ModelLoadBunk::ModelLoadBunk(QObject *parent): DbTableModel("bunk_comp",parent)
 
 void ModelLoadBunk::refresh(QDate beg, QDate end, int id_cex)
 {
-    setDefaultValue(8,id_cex);
+    setDefaultValue(9,id_cex);
     setFilter("bunk_comp.dat between '"+beg.toString("yyyy-MM-dd")+"' and '"+end.toString("yyyy-MM-dd")+"' and bunk_comp.id_cex = "+QString::number(id_cex));
     select();
 }

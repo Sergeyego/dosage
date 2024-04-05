@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1022</width>
-    <height>698</height>
+    <width>1020</width>
+    <height>696</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -35,7 +35,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1022</width>
+     <width>1020</width>
      <height>25</height>
     </rect>
    </property>
@@ -58,6 +58,7 @@
     </property>
     <addaction name="actionRepDoz"/>
     <addaction name="actionRepPack"/>
+    <addaction name="actionRepBunk"/>
    </widget>
    <widget class="QMenu" name="menu_4">
     <property name="title">
@@ -65,6 +66,8 @@
     </property>
     <addaction name="actionBackfill"/>
     <addaction name="actionBackfillHist"/>
+    <addaction name="separator"/>
+    <addaction name="actionOst"/>
    </widget>
    <addaction name="menu"/>
    <addaction name="menu_4"/>
@@ -109,6 +112,16 @@
   <action name="actionRepDoz">
    <property name="text">
     <string>Расход компонентов на линии дозировки</string>
+   </property>
+  </action>
+  <action name="actionOst">
+   <property name="text">
+    <string>Остатки в бункерах</string>
+   </property>
+  </action>
+  <action name="actionRepBunk">
+   <property name="text">
+    <string>Отчет по бункерам</string>
    </property>
   </action>
  </widget>

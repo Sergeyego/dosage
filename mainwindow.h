@@ -10,6 +10,8 @@
 #include "formgroup.h"
 #include "formrepdoz.h"
 #include "formreppack.h"
+#include "formost.h"
+#include "formrepbunk.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -28,10 +30,12 @@ private slots:
     void newFormDoz();
     void newFormBackfill();
     void newFormBackfillHist();
+    void newFormOst();
     void newFormComp();
     void newFormGroup();
     void newFormRepDoz();
     void newFormRepPack();
+    void newFormRepBunk();
 
 private:
     Ui::MainWindow *ui;

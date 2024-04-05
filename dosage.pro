@@ -28,6 +28,8 @@ SOURCES += \
     formcomp.cpp \
     formdoz.cpp \
     formgroup.cpp \
+    formost.cpp \
+    formrepbunk.cpp \
     formrepdoz.cpp \
     formreport.cpp \
     formreppack.cpp \
@@ -61,6 +63,8 @@ HEADERS += \
     formcomp.h \
     formdoz.h \
     formgroup.h \
+    formost.h \
+    formrepbunk.h \
     formrepdoz.h \
     formreport.h \
     formreppack.h \
@@ -84,6 +88,8 @@ FORMS += \
     formcomp.ui \
     formdoz.ui \
     formgroup.ui \
+    formost.ui \
+    formrepbunk.ui \
     formrepdoz.ui \
     formreport.ui \
     formreppack.ui \

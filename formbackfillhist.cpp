@@ -44,7 +44,7 @@ void FormBackfillHist::updHist()
     int id_comp=ui->tableViewComp->model()->data(indComp,Qt::EditRole).toInt();
     int id_cex=ui->comboBoxCex->getCurrentData().val.toInt();
     QSqlQuery query;
-    query.prepare("select bc.dtm as dtm, b.numer, bc.parti, tp.nam as typ, bo.nam from bunk_comp as bc "
+    query.prepare("select bc.dtm as dtm, b.numer, bc.parti, tp.nam as typ, bo.nam, bc.kvo from bunk_comp as bc "
                   "inner join bunk as b on b.id=bc.id_bunk "
                   "inner join matr as m on m.id=bc.id_comp "
                   "inner join el_types as tp on tp.id=bc.id_grp "
@@ -60,5 +60,6 @@ void FormBackfillHist::updHist()
         modelHist->setHeaderData(2,Qt::Horizontal,QString::fromUtf8("Партия"));
         modelHist->setHeaderData(3,Qt::Horizontal,QString::fromUtf8("Группа"));
         modelHist->setHeaderData(4,Qt::Horizontal,QString::fromUtf8("Операция"));
+        modelHist->setHeaderData(5,Qt::Horizontal,QString::fromUtf8("К-во, кг"));
     }
 }
