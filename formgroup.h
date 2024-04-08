@@ -12,7 +12,7 @@ class FormGroup;
 class ModelGroupEl : public DbTableModel
 {
 public:
-    ModelGroupEl(QObject *parent=0);
+    ModelGroupEl(QObject *parent = nullptr);
     bool insertRow(int row, const QModelIndex &parent);
     bool removeRow(int row, const QModelIndex &parent);
 };

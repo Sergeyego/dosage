@@ -196,7 +196,7 @@ void ModelDoz::confirmDoz(int row)
             query.prepare("update dosage_spnd set kvo_fact = kvo_comp where id_dos = :id ");
             query.bindValue(":id",id_doz);
             if (!query.exec()){
-                QMessageBox::critical(NULL,tr("Error"),query.lastError().text(),QMessageBox::Cancel);
+                QMessageBox::critical(nullptr,tr("Error"),query.lastError().text(),QMessageBox::Cancel);
             }
         }
     }
@@ -211,7 +211,7 @@ bool ModelDoz::deleteDb(int row)
     if (query.exec()){
         return DbTableModel::deleteDb(row);
     } else {
-        QMessageBox::critical(NULL,tr("Error"),query.lastError().text(),QMessageBox::Cancel);
+        QMessageBox::critical(nullptr,tr("Error"),query.lastError().text(),QMessageBox::Cancel);
         return false;
     }
 }

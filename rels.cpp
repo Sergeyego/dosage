@@ -1,10 +1,10 @@
 #include "rels.h"
 
-Rels* Rels::rels_instance=0;
+Rels* Rels::rels_instance=nullptr;
 
 Rels *Rels::instance()
 {
-    if (rels_instance==0)
+    if (rels_instance==nullptr)
         rels_instance = new Rels();
     return rels_instance;
 }

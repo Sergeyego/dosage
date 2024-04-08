@@ -30,7 +30,7 @@ bool ModelRo::execQuery(QSqlQuery &query)
     if (ok){
         setQuery(query);
     } else {
-        QMessageBox::critical(NULL,tr("Error"),query.lastError().text(),QMessageBox::Cancel);
+        QMessageBox::critical(nullptr,tr("Error"),query.lastError().text(),QMessageBox::Cancel);
         clear();
     }
     return ok;

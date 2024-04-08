@@ -32,12 +32,12 @@ void FormRepBunk::upd()
 {
     int id_cex=ui->comboBoxCex->getCurrentData().val.toInt();
     QSqlQuery query;
-    query.prepare("select m.nam, r.part, b.numer, r.ostbeg, r.bas, r.dos, r.korr, r.ostend "
+    query.prepare("select m.nam, r.parti, b.numer, r.ostbeg, r.bas, r.dos, r.korr, r.ostend "
                   "from calc_bunk_report(:d1,:d2,:id_cex) as r "
                   "inner join matr as m on m.id=r.id_comp "
                   "inner join bunk as b on b.id=r.id_bunk "
-                  "order by b.nomer, m.nam, r.part");
-    query.bindValue(":d1",ui->dateEditBeg->date().addDays(-1));
+                  "order by b.nomer, m.nam, r.parti");
+    query.bindValue(":d1",ui->dateEditBeg->date());
     query.bindValue(":d2",ui->dateEditEnd->date());
     query.bindValue(":id_cex",id_cex);
     if (modelRep->execQuery(query)){

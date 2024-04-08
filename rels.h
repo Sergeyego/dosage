@@ -22,7 +22,7 @@ public:
     bool sendRequest(QString path, QString req, const QByteArray &data, QByteArray &respData);
 
 protected:
-    explicit Rels(QObject *parent = 0);
+    explicit Rels(QObject *parent = nullptr);
 
 private:
     static Rels *rels_instance;

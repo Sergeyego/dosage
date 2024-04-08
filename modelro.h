@@ -13,7 +13,7 @@ class ModelRo : public QSqlQueryModel
 {
     Q_OBJECT
 public:
-    ModelRo(QObject *parent);
+    ModelRo(QObject *parent = nullptr);
     QVariant data(const QModelIndex &item, int role) const;
     bool execQuery(QSqlQuery &query);
     void setQuery(const QSqlQuery &query);

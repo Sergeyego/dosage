@@ -15,7 +15,7 @@ class DialogNew : public QDialog
     Q_OBJECT
 
 public:
-    explicit DialogNew(QWidget *parent = 0);
+    explicit DialogNew(QWidget *parent = nullptr);
     ~DialogNew();
     int getNewId();
 

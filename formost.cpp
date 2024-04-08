@@ -36,6 +36,7 @@ FormOst::FormOst(QWidget *parent) :
     mapper->addMapping(ui->lineEditNum,2);
     mapper->addMapping(ui->dateEditDat,3);
     mapper->addEmptyLock(ui->tableViewData);
+    mapper->addEmptyLock(ui->pushButtonIns);
     mapper->addLock(ui->comboBoxCex);
     mapper->addLock(ui->pushButtonUpd);
 
@@ -44,6 +45,7 @@ FormOst::FormOst(QWidget *parent) :
     connect(ui->pushButtonUpd,SIGNAL(clicked(bool)),this,SLOT(upd()));
     connect(ui->comboBoxCex,SIGNAL(currentIndexChanged(int)),this,SLOT(upd()));
     connect(mapper,SIGNAL(currentIndexChanged(int)),this,SLOT(updData(int)));
+    connect(ui->pushButtonIns,SIGNAL(clicked(bool)),this,SLOT(ins()));
 
     upd();
 }
@@ -63,6 +65,30 @@ void FormOst::updData(int index)
 {
     int id_ost=mapper->modelData(index,0).toInt();
     modelOstData->refresh(id_ost);
+}
+
+void FormOst::ins()
+{
+    if (modelOstData->isEmpty()){
+        int id_ost=mapper->modelData(mapper->currentIndex(),0).toInt();
+        QDate dat=mapper->modelData(mapper->currentIndex(),3).toDate();
+        int id_cex=ui->comboBoxCex->getCurrentData().val.toInt();
+        QSqlQuery query;
+        query.prepare("insert into bunk_ost_data (id_ost, id_bunk, id_comp, parti, kvo) "
+                      "(select :id_ost, c.id_bunk, max(c.id_comp), max(c.parti), max(c.ostend) "
+                      "from calc_bunk(:dat,:id_cex) as c "
+                      "group by c.id_bunk)");
+        query.bindValue(":id_ost",id_ost);
+        query.bindValue(":dat",dat);
+        query.bindValue(":id_cex",id_cex);
+        if (query.exec()){
+            modelOstData->select();
+        } else {
+            QMessageBox::critical(this,tr("Error"),query.lastError().text(),QMessageBox::Cancel);
+        }
+    } else {
+        QMessageBox::warning(this,tr("Предупреждение"),tr("Можно заполнить только пустую таблицу!"),QMessageBox::Ok);
+    }
 }
 
 ModelOst::ModelOst(QWidget *parent) : DbTableModel("bunk_ost",parent)

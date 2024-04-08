@@ -135,7 +135,7 @@ bool FormRepPack::calc_all()
     QProgressDialog progress;
     progress.setWindowTitle(tr("Формирование отчета"));
     progress.setAutoClose(false);
-    progress.setCancelButton(NULL);
+    progress.setCancelButton(nullptr);
     progress.setMinimumDuration(0);
     progress.setMinimum(0);
     progress.setMaximum(modelPart->rowCount());

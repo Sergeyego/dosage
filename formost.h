@@ -46,6 +46,7 @@ private:
 private slots:
     void upd();
     void updData(int index);
+    void ins();
 };
 
 #endif // FORMOST_H

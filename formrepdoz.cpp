@@ -63,7 +63,7 @@ void FormRepDoz::upd()
         sdt.push_back(sumfact);
         data.push_back(sdt);
     } else {
-        QMessageBox::critical(NULL,tr("Error"),query.lastError().text(),QMessageBox::Cancel);
+        QMessageBox::critical(nullptr,tr("Error"),query.lastError().text(),QMessageBox::Cancel);
     }
     modelRep->setModelData(data);
     ui->tableView->resizeToContents();
