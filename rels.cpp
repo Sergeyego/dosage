@@ -30,7 +30,7 @@ bool Rels::sendRequest(QString path, QString req, const QByteArray &data, QByteA
         reply=man.sendCustomRequest(request,req.toUtf8()/*,data*/);
     }
     if (!reply->isFinished()){
-        loop.exec();
+        loop.exec(QEventLoop::ExcludeUserInputEvents);
     }
     respData=reply->readAll();
     bool ok=(reply->error()==QNetworkReply::NoError);
@@ -55,7 +55,7 @@ Rels::Rels(QObject *parent) : QObject(parent)
     relCmp->model()->originalModel()->setHeader(header);
 
     relCex = new DbSqlRelation("bunk_cex","id","nam",this);
-    relCex->setSort("id desc");
+    relCex->setSort("id");
     relCex->setFilter("bunk_cex.en=true");
     relCex->model()->setAsync(false);
 

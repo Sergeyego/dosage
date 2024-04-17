@@ -147,6 +147,10 @@ bool CustomCompletter::eventFilter(QObject *o, QEvent *e)
             }
             return true;
         }
+    } else if (e->type()==QEvent::MouseButtonPress && this->popup()->isVisible()) {
+        if (this->popup()->model()->rowCount()){
+            emit activated(this->popup()->model()->index(0,1));
+        }
     }
     return QCompleter::eventFilter(o,e);
 }
@@ -178,7 +182,7 @@ void CustomCompletter::actComp(QString s)
 }
 
 void CustomCompletter::setCurrentKey(QModelIndex index)
-{
+{    
     if (index.isValid()){
         colVal d;
         d.disp=this->popup()->model()->data(this->popup()->model()->index(index.row(),1),Qt::EditRole).toString();

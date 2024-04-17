@@ -21,6 +21,7 @@ SOURCES += \
     db/dbviewer.cpp \
     db/dbxlsx.cpp \
     db/executor.cpp \
+    db/modelro.cpp \
     db/tablemodel.cpp \
     dialognew.cpp \
     formbackfill.cpp \
@@ -35,7 +36,6 @@ SOURCES += \
     formreppack.cpp \
     main.cpp \
     mainwindow.cpp \
-    modelro.cpp \
     olap/axiswidget.cpp \
     olap/cubewidget.cpp \
     olap/cubic.cpp \
@@ -56,6 +56,7 @@ HEADERS += \
     db/dbviewer.h \
     db/dbxlsx.h \
     db/executor.h \
+    db/modelro.h \
     db/tablemodel.h \
     dialognew.h \
     formbackfill.h \
@@ -69,7 +70,6 @@ HEADERS += \
     formreport.h \
     formreppack.h \
     mainwindow.h \
-    modelro.h \
     olap/axiswidget.h \
     olap/cubewidget.h \
     olap/cubic.h \

@@ -6,7 +6,7 @@
 #include "db/dbtablemodel.h"
 #include "olap/tableview.h"
 #include "rels.h"
-#include "modelro.h"
+#include "db/modelro.h"
 
 namespace Ui {
 class FormBackfill;

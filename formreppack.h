@@ -2,8 +2,8 @@
 #define FORMREPPACK_H
 
 #include <QWidget>
-#include <modelro.h>
 #include <QProgressDialog>
+#include "db/modelro.h"
 #include "olap/cubewidget.h"
 #include "formreport.h"
 
