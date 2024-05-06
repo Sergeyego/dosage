@@ -12,6 +12,8 @@ FormBackfill::FormBackfill(QWidget *parent) :
     ui->pushButtonSave->setIcon(this->style()->standardIcon(QStyle::SP_DialogSaveButton));
     ui->pushButtonUpdStatTime->setIcon(this->style()->standardIcon(QStyle::SP_BrowserReload));
 
+    sqlExecutor = new ProgressExecutor(this);
+
     if (!Rels::instance()->relCex->model()->isInital()){
         Rels::instance()->relCex->refreshModel();
     }
@@ -57,6 +59,7 @@ FormBackfill::FormBackfill(QWidget *parent) :
     connect(ui->pushButtonUpd,SIGNAL(clicked(bool)),this,SLOT(updLoad()));
     connect(modelLoadBunk,SIGNAL(sigUpd()),this,SLOT(updStat()));
     connect(ui->comboBoxCex,SIGNAL(currentIndexChanged(QString)),this,SLOT(updLoad()));
+    connect(ui->pushButtonPart,SIGNAL(clicked(bool)),this,SLOT(updPart()));
 }
 
 FormBackfill::~FormBackfill()
@@ -99,6 +102,21 @@ void FormBackfill::save()
     v.verticalHeader()->setVisible(false);
     v.resizeToContents();
     v.save(QString::fromUtf8("Состояние бункеров на ")+ui->dateTimeEdit->dateTime().toString("dd.MM.yy HH.mm"));
+}
+
+void FormBackfill::updPart()
+{
+    if (ui->dateEditEnd->date().addDays(-3)>=ui->dateEditBeg->date()){
+        QMessageBox::critical(this,QString::fromUtf8("Недопустимое действие"),QString::fromUtf8("Запрещено пересчитывать партии более чем за 3 дня"),QMessageBox::Cancel);
+        return;
+    }
+    QString text=QString::fromUtf8("Будут обновлены партии на дозировках с %1 по %2.").arg(ui->dateEditBeg->date().toString("dd.MM.yy")).arg(ui->dateEditEnd->date().toString("dd.MM.yy"));
+    int q = QMessageBox::question(this,QString::fromUtf8("Подтвердите действие"),text,QMessageBox::Ok,QMessageBox::Cancel);
+    if (q==QMessageBox::Ok){
+        QString query=QString("select * from calc_doz_parti_recalc('%1', '%2')").arg(ui->dateEditBeg->date().toString("yyyy-MM-dd")).arg(ui->dateEditEnd->date().toString("yyyy-MM-dd"));
+        sqlExecutor->setQuery(query);
+        sqlExecutor->start();
+    }
 }
 
 ModelStatBunk::ModelStatBunk(QObject *parent) : ModelRo(parent)

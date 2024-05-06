@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1000</width>
-    <height>624</height>
+    <width>998</width>
+    <height>622</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -141,6 +141,13 @@
       <widget class="QPushButton" name="pushButtonUpd">
        <property name="text">
         <string>Обновить</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pushButtonPart">
+       <property name="text">
+        <string>Обновить партии отдозированных компонентов</string>
        </property>
       </widget>
      </item>

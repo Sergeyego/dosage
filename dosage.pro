@@ -43,6 +43,8 @@ SOURCES += \
     olap/formfilter.cpp \
     olap/olapmodel.cpp \
     olap/tableview.cpp \
+    progressexecutor.cpp \
+    progressreportdialog.cpp \
     rels.cpp
 
 HEADERS += \
@@ -77,6 +79,8 @@ HEADERS += \
     olap/formfilter.h \
     olap/olapmodel.h \
     olap/tableview.h \
+    progressexecutor.h \
+    progressreportdialog.h \
     rels.h
 
 FORMS += \
@@ -97,7 +101,8 @@ FORMS += \
     olap/axiswidget.ui \
     olap/cubewidget.ui \
     olap/dialogolapflt.ui \
-    olap/formfilter.ui
+    olap/formfilter.ui \
+    progressreportdialog.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

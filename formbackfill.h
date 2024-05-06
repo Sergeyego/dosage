@@ -7,6 +7,7 @@
 #include "olap/tableview.h"
 #include "rels.h"
 #include "db/modelro.h"
+#include "progressexecutor.h"
 
 namespace Ui {
 class FormBackfill;
@@ -40,12 +41,14 @@ private:
     ModelLoadBunk *modelLoadBunk;
     QSortFilterProxyModel *modelBunk;
     QSortFilterProxyModel *modelPart;
+    ProgressExecutor *sqlExecutor;
 
 private slots:
     void updStat();
     void updStatTime();
     void updLoad();
     void save();
+    void updPart();
 };
 
 #endif // FORMBACKFILL_H
