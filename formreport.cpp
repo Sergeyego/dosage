@@ -12,10 +12,7 @@ FormReport::FormReport(QString title, QWidget *parent) :
     ui->pushButtonSaveRec->setIcon(this->style()->standardIcon(QStyle::SP_DialogSaveButton));
 
     modelComp = new ModelRo(this);
-    modelProxyComp = new QSortFilterProxyModel(this);
-    modelProxyComp->setSourceModel(modelComp);
-    modelProxyComp->setSortRole(Qt::EditRole);
-    ui->tableViewComp->setModel(modelProxyComp);
+    ui->tableViewComp->setModel(modelComp);
     ui->tableViewComp->setWindowTitle(title);
 
     modelDiff = new ModelRo(this);
@@ -74,7 +71,7 @@ void FormReport::updComp()
                       "inner join elrtr_vars ev on ev.id = p2.id_var "
                       "inner join elrtr e on e.id=p2.id_el "
                       "inner join el_types et on et.id = e.id_vid "
-                      "order by parti, marka, diam, var");
+                      "order by parti, m.cod, marka, diam, var");
         header<<tr("Партия")<<tr("Марка")<<tr("Ф")<<tr("Вариант")<<tr("Группа")<<tr("Компонент")<<tr("Парт.комп.")
              <<tr("Упаков.")<<tr("В брак")<<tr("Дроб.руб.")<<tr("Безв.пот.")<<tr("Возв.пот.")<<tr("Шихт.брак")<<tr("Возврат");
     } else if (ui->radioButtonMark->isChecked()){
@@ -84,7 +81,7 @@ void FormReport::updComp()
                       "select p2.n_s||'-'||p2.yea as parti, e.marka as marka, cast(p2.diam as varchar(3)) as diam, "
                       "CASE WHEN p2.id_var<>1 THEN ' /'||ev.nam ||'/' ELSE '' end as var, "
                       "et.nam as grp, coalesce(p.nam||' ф '||d2.sdim, m.nam) as comp, rn.cmp_part as comp_part, "
-                      "rn.prod,rn.brk,rn.loss_drb,rn.loss_prs,rn.prs,rn.dry,rn.real_return "
+                      "rn.prod,rn.brk,rn.loss_drb,rn.loss_prs,rn.prs,rn.dry,rn.real_return, m.cod "
                       "from tmp_report_new rn "
                       "left join matr m on m.id = rn.id_matr and rn.id_dim=-1 "
                       "left join provol p on p.id = rn.id_matr and rn.id_dim<>-1 "
@@ -94,8 +91,8 @@ void FormReport::updComp()
                       "inner join elrtr e on e.id=p2.id_el "
                       "inner join el_types et on et.id = e.id_vid "
                       ") as z "
-                      "group by z.marka, z.diam, z.var, z.grp, z.comp, z.comp_part "
-                      "order by z.marka, z.diam, z.var, z.grp, z.comp, z.comp_part");
+                      "group by z.marka, z.diam, z.var, z.grp, z.comp, z.comp_part, z.cod "
+                      "order by z.marka, z.diam, z.var, z.grp, z.cod, z.comp, z.comp_part");
         header<<tr("Марка")<<tr("Ф")<<tr("Вариант")<<tr("Группа")<<tr("Компонент")<<tr("Парт.комп.")
              <<tr("Упаков.")<<tr("В брак")<<tr("Дроб.руб.")<<tr("Безв.пот.")<<tr("Возв.пот.")<<tr("Шихт.брак")<<tr("Возврат");
     } else if (ui->radioButtonGroup->isChecked()){
@@ -105,7 +102,7 @@ void FormReport::updComp()
                       "select p2.n_s||'-'||p2.yea as parti, e.marka as marka, cast(p2.diam as varchar(3)) as diam, "
                       "CASE WHEN p2.id_var<>1 THEN ' /'||ev.nam ||'/' ELSE '' end as var, "
                       "et.nam as grp, coalesce(p.nam||' ф '||d2.sdim, m.nam) as comp, rn.cmp_part as comp_part, "
-                      "rn.prod,rn.brk,rn.loss_drb,rn.loss_prs,rn.prs,rn.dry,rn.real_return "
+                      "rn.prod,rn.brk,rn.loss_drb,rn.loss_prs,rn.prs,rn.dry,rn.real_return, m.cod "
                       "from tmp_report_new rn "
                       "left join matr m on m.id = rn.id_matr and rn.id_dim=-1 "
                       "left join provol p on p.id = rn.id_matr and rn.id_dim<>-1 "
@@ -115,8 +112,8 @@ void FormReport::updComp()
                       "inner join elrtr e on e.id=p2.id_el "
                       "inner join el_types et on et.id = e.id_vid "
                       ") as z "
-                      "group by z.grp, z.comp, z.comp_part "
-                      "order by z.grp, z.comp, z.comp_part");
+                      "group by z.grp, z.comp, z.comp_part, z.cod "
+                      "order by z.grp, z.cod, z.comp, z.comp_part");
         header<<tr("Группа")<<tr("Компонент")<<tr("Парт.комп.")
              <<tr("Упаков.")<<tr("В брак")<<tr("Дроб.руб.")<<tr("Безв.пот.")<<tr("Возв.пот.")<<tr("Шихт.брак")<<tr("Возврат");
     } else if (ui->radioButtonPartComp->isChecked()){
@@ -126,7 +123,7 @@ void FormReport::updComp()
                       "select p2.n_s||'-'||p2.yea as parti, e.marka as marka, cast(p2.diam as varchar(3)) as diam, "
                       "CASE WHEN p2.id_var<>1 THEN ' /'||ev.nam ||'/' ELSE '' end as var, "
                       "et.nam as grp, coalesce(p.nam||' ф '||d2.sdim, m.nam) as comp, rn.cmp_part as comp_part, "
-                      "rn.prod,rn.brk,rn.loss_drb,rn.loss_prs,rn.prs,rn.dry,rn.real_return "
+                      "rn.prod,rn.brk,rn.loss_drb,rn.loss_prs,rn.prs,rn.dry,rn.real_return, m.cod "
                       "from tmp_report_new rn "
                       "left join matr m on m.id = rn.id_matr and rn.id_dim=-1 "
                       "left join provol p on p.id = rn.id_matr and rn.id_dim<>-1 "
@@ -136,8 +133,8 @@ void FormReport::updComp()
                       "inner join elrtr e on e.id=p2.id_el "
                       "inner join el_types et on et.id = e.id_vid "
                       ") as z "
-                      "group by z.comp, z.comp_part "
-                      "order by z.comp, z.comp_part");
+                      "group by z.comp, z.comp_part, z.cod "
+                      "order by z.cod, z.comp, z.comp_part");
         header<<tr("Компонент")<<tr("Парт.комп.")
              <<tr("Упаков.")<<tr("В брак")<<tr("Дроб.руб.")<<tr("Безв.пот.")<<tr("Возв.пот.")<<tr("Шихт.брак")<<tr("Возврат");
     } else if (ui->radioButtonComp->isChecked()){
@@ -147,7 +144,7 @@ void FormReport::updComp()
                       "select p2.n_s||'-'||p2.yea as parti, e.marka as marka, cast(p2.diam as varchar(3)) as diam, "
                       "CASE WHEN p2.id_var<>1 THEN ' /'||ev.nam ||'/' ELSE '' end as var, "
                       "et.nam as grp, coalesce(p.nam||' ф '||d2.sdim, m.nam) as comp, rn.cmp_part as comp_part, "
-                      "rn.prod,rn.brk,rn.loss_drb,rn.loss_prs,rn.prs,rn.dry,rn.real_return "
+                      "rn.prod,rn.brk,rn.loss_drb,rn.loss_prs,rn.prs,rn.dry,rn.real_return, m.cod "
                       "from tmp_report_new rn "
                       "left join matr m on m.id = rn.id_matr and rn.id_dim=-1 "
                       "left join provol p on p.id = rn.id_matr and rn.id_dim<>-1 "
@@ -157,8 +154,8 @@ void FormReport::updComp()
                       "inner join elrtr e on e.id=p2.id_el "
                       "inner join el_types et on et.id = e.id_vid "
                       ") as z "
-                      "group by z.comp "
-                      "order by z.comp");
+                      "group by z.comp, z.cod "
+                      "order by z.cod, z.comp");
         header<<tr("Компонент")
              <<tr("Упаков.")<<tr("В брак")<<tr("Дроб.руб.")<<tr("Безв.пот.")<<tr("Возв.пот.")<<tr("Шихт.брак")<<tr("Возврат");
     }

@@ -23,7 +23,6 @@ private:
     ModelRo *modelDiff;
     ModelRo *modelRec;
 
-    QSortFilterProxyModel *modelProxyComp;
     QSortFilterProxyModel *modelProxyDiff;
     QSortFilterProxyModel *modelProxyRec;
 

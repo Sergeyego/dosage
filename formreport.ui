@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1100</width>
-    <height>800</height>
+    <width>1098</width>
+    <height>798</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -92,7 +92,7 @@
        <item>
         <widget class="TableView" name="tableViewComp">
          <property name="sortingEnabled">
-          <bool>true</bool>
+          <bool>false</bool>
          </property>
         </widget>
        </item>
