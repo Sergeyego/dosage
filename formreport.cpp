@@ -71,7 +71,7 @@ void FormReport::updComp()
                       "inner join elrtr_vars ev on ev.id = p2.id_var "
                       "inner join elrtr e on e.id=p2.id_el "
                       "inner join el_types et on et.id = e.id_vid "
-                      "order by parti, m.cod, marka, diam, var");
+                      "order by m.cod, comp, parti, marka, diam, var");
         header<<tr("Партия")<<tr("Марка")<<tr("Ф")<<tr("Вариант")<<tr("Группа")<<tr("Компонент")<<tr("Парт.комп.")
              <<tr("Упаков.")<<tr("В брак")<<tr("Дроб.руб.")<<tr("Безв.пот.")<<tr("Возв.пот.")<<tr("Шихт.брак")<<tr("Возврат");
     } else if (ui->radioButtonMark->isChecked()){
@@ -92,7 +92,7 @@ void FormReport::updComp()
                       "inner join el_types et on et.id = e.id_vid "
                       ") as z "
                       "group by z.marka, z.diam, z.var, z.grp, z.comp, z.comp_part, z.cod "
-                      "order by z.marka, z.diam, z.var, z.grp, z.cod, z.comp, z.comp_part");
+                      "order by z.cod, z.comp, z.marka, z.diam, z.var, z.grp, z.comp_part");
         header<<tr("Марка")<<tr("Ф")<<tr("Вариант")<<tr("Группа")<<tr("Компонент")<<tr("Парт.комп.")
              <<tr("Упаков.")<<tr("В брак")<<tr("Дроб.руб.")<<tr("Безв.пот.")<<tr("Возв.пот.")<<tr("Шихт.брак")<<tr("Возврат");
     } else if (ui->radioButtonGroup->isChecked()){
@@ -113,7 +113,7 @@ void FormReport::updComp()
                       "inner join el_types et on et.id = e.id_vid "
                       ") as z "
                       "group by z.grp, z.comp, z.comp_part, z.cod "
-                      "order by z.grp, z.cod, z.comp, z.comp_part");
+                      "order by z.cod, z.comp, z.comp_part, z.grp");
         header<<tr("Группа")<<tr("Компонент")<<tr("Парт.комп.")
              <<tr("Упаков.")<<tr("В брак")<<tr("Дроб.руб.")<<tr("Безв.пот.")<<tr("Возв.пот.")<<tr("Шихт.брак")<<tr("Возврат");
     } else if (ui->radioButtonPartComp->isChecked()){
