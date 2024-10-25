@@ -128,7 +128,7 @@ void ModelStatBunk::refresh(QDateTime datetime, int id_cex)
 {
     QSqlQuery query;
     query.prepare("select num, nam, parti, typ, dtm, is_tiny from calc_doz_stat_new(:dt, :id_cex) order by num, nam");
-    query.bindValue(":dt",datetime);
+    query.bindValue(":dt",datetime.toString("yyyy-MM-dd hh:mm:ss"));
     query.bindValue(":id_cex",id_cex);
     if (execQuery(query)){
         setHeaderData(0,Qt::Horizontal,QString::fromUtf8("Бункер"));
