@@ -113,16 +113,3 @@ void TableModel::setDecimalForColumn(int section, int dec)
     mdecimal.insert(section,dec);
     endResetModel();
 }
-
-bool TableModel::insertRow(int row, const QModelIndex &parent)
-{
-    bool ok=(row>=0)&&(row<=p_d.size());
-    if (ok){
-        beginInsertRows(parent,row,row);
-        QVector<QVariant> r;
-        r.resize(p_header.size());
-        p_d.insert(row,r);
-        endInsertRows();
-    }
-    return ok;
-}

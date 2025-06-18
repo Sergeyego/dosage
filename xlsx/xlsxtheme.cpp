@@ -81,7 +81,7 @@ const char *defaultXmlData =
         "<a:font script=\"Uigh\" typeface=\"Microsoft Uighur\"/>"
         "</a:majorFont>"
         "<a:minorFont>"
-        "<a:latin typeface=\"Arial\"/>"
+        "<a:latin typeface=\"Calibri\"/>"
         "<a:ea typeface=\"\"/>"
         "<a:cs typeface=\"\"/>"
         "<a:font script=\"Jpan\" typeface=\"\xef\xbc\xad\xef\xbc\xb3 \xef\xbc\xb0\xe3\x82\xb4\xe3\x82\xb7\xe3\x83\x83\xe3\x82\xaf\"/>"

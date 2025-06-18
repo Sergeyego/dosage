@@ -72,13 +72,17 @@ void DbXlsx::saveToFile()
                     if ((value.typeName()==QString("double"))){
                         if (!sqlModel){
                             QString tmp=viewer->model()->data(viewer->model()->index(i,j),Qt::DisplayRole).toString();
-                            int pos = tmp.indexOf(QRegExp("[.,]"));
+                            int pos = tmp.indexOf(QRegularExpression("[.,]"));
                             if (pos>0){
                                 dec=tmp.size()-pos-1;
                             }
                         }
                         if (dec>=1){
-                            QString fmt=QString("0.%1").arg((0),dec,'d',0,QChar('0'));
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
+                            QString fmt=QString("# ##0.%1").arg((0),dec,10,QChar('0'));
+#else
+                            QString fmt=QString("# ##0.%1").arg((0),dec,'d',0,QChar('0'));
+#endif
                             numFormat.setNumberFormat(fmt);
                         } else {
                             numFormat.setNumberFormat("0");

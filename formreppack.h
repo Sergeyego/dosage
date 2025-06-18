@@ -3,7 +3,7 @@
 
 #include <QWidget>
 #include <QProgressDialog>
-#include "db/modelro.h"
+#include "modelro.h"
 #include "olap/cubewidget.h"
 #include "formreport.h"
 

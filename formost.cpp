@@ -106,7 +106,11 @@ bool ModelOst::insertRow(int row, const QModelIndex &parent)
     select();
     if (rowCount()>0 && !isAdd()) {
         int old_num=this->data(this->index(rowCount()-1,2),Qt::EditRole).toInt();
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
+        setDefaultValue(2,QString("%1").arg((old_num+1),3,10,'0'));
+#else
         setDefaultValue(2,QString("%1").arg((old_num+1),3,'d',0,QChar('0')));
+#endif
         setDefaultValue(3,QDate::currentDate());
     }
     return DbTableModel::insertRow(row,parent);

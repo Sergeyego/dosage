@@ -32,6 +32,7 @@
 #include <QList>
 #include <QExplicitlySharedDataPointer>
 #include <QVariant>
+#include <QIODevice>
 
 class FormatTest;
 

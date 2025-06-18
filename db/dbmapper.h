@@ -62,6 +62,7 @@ signals:
     void currentIndexChanged(int index);
     void lockChanged(bool l);
     void sigWrite();
+    void sigEdt();
 };
 
 #endif // DBMAPPER_H

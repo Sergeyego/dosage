@@ -7,6 +7,8 @@
 #include "axiswidget.h"
 #include <QSqlQueryModel>
 #include "dialogolapflt.h"
+#include <QJsonDocument>
+#include <QJsonArray>
 
 namespace Ui {
 class CubeWidget;

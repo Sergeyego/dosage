@@ -16,7 +16,7 @@ class DbViewer : public QTableView
 {
     Q_OBJECT
 public:
-    DbViewer(QWidget *parent=nullptr);
+    DbViewer(QWidget *parent = nullptr);
     void setModel(QAbstractItemModel *model);
     void setColumnsWidth(QVector<int> width);
 

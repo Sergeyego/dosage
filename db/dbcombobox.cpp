@@ -35,12 +35,7 @@ void DbComboBox::setIndex(const QModelIndex &index)
             colVal c;
             c.disp=sqlModel->data(index,Qt::DisplayRole).toString();
             c.val=sqlModel->data(index,Qt::EditRole);
-            //qDebug()<<"set index:"<<c.disp<<sqlModel->sqlRelation(index.column())->model()->isInital();
-            if (sqlModel->sqlRelation(index.column())->model()->isInital()){
-                setCurrentData(c);
-            } else {
-                currentData=c;
-            }
+            setCurrentData(c);
         }
     }
 }
@@ -49,15 +44,16 @@ void DbComboBox::setModel(QAbstractItemModel *model)
 {
     DbSqlLikeModel *sqlModel = qobject_cast<DbSqlLikeModel *>(model);
     if (sqlModel){
-
-        connect(sqlModel,SIGNAL(searchRequested(QString)),this,SLOT(blockSignal()));
-        connect(sqlModel,SIGNAL(searchFinished(QString)),this,SLOT(updData()));
-
+        if (!sqlModel->isInital()){
+            sqlModel->startSearch("");
+        }
         QComboBox::setModel(sqlModel);
         setModelColumn(1);
 
+        connect(sqlModel,SIGNAL(searchFinished(QString)),this,SLOT(updData()));
+
         DbSqlLikeModel *likeModel = new DbSqlLikeModel(sqlModel->getRelation(),this);
-        likeModel->setAsync(true);
+        likeModel->setAsync(sqlModel->getRelation()->getAsyncSearch());
         sqlCompleter->setModel(likeModel);
         sqlCompleter->setCompletionColumn(1);
 
@@ -70,12 +66,6 @@ void DbComboBox::setModel(QAbstractItemModel *model)
     return QComboBox::setModel(model);
 }
 
-void DbComboBox::blockSignal()
-{
-    //qDebug()<<"started!";
-    this->blockSignals(true);
-}
-
 
 void DbComboBox::indexChanged(int n)
 {
@@ -83,9 +73,8 @@ void DbComboBox::indexChanged(int n)
         colVal newVal;
         newVal.val=this->model()->data(this->model()->index(n,0),Qt::EditRole);
         newVal.disp=this->model()->data(this->model()->index(n,1),Qt::EditRole).toString();
-        currentData=newVal;       
+        currentData=newVal;
     }
-    //qDebug()<<"indexChanged:"<<n<<currentData.disp<<sender();
 }
 
 void DbComboBox::edtRel()
@@ -95,7 +84,6 @@ void DbComboBox::edtRel()
 
 void DbComboBox::updData()
 {
-    //qDebug()<<"finished!"<<currentData.disp;
     this->blockSignals(true);
     this->setCurrentData(currentData);
     this->blockSignals(false);
@@ -147,10 +135,6 @@ bool CustomCompletter::eventFilter(QObject *o, QEvent *e)
             }
             return true;
         }
-    } else if (e->type()==QEvent::MouseButtonPress && this->popup()->isVisible()) {
-        if (this->popup()->model()->rowCount()){
-            emit activated(this->popup()->model()->index(0,1));
-        }
     }
     return QCompleter::eventFilter(o,e);
 }
@@ -182,7 +166,7 @@ void CustomCompletter::actComp(QString s)
 }
 
 void CustomCompletter::setCurrentKey(QModelIndex index)
-{    
+{
     if (index.isValid()){
         colVal d;
         d.disp=this->popup()->model()->data(this->popup()->model()->index(index.row(),1),Qt::EditRole).toString();

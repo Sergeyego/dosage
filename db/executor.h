@@ -24,7 +24,7 @@ public:
     ~GetNamer();
 
 protected:
-    GetNamer(QObject *parent = 0);
+    GetNamer(QObject *parent = nullptr);
 
 private:
     static GetNamer* get_namer_instance;
@@ -36,7 +36,7 @@ class Executor : public QThread
 {
     Q_OBJECT
 public:
-    explicit Executor(QObject *parent=nullptr);
+    explicit Executor(QObject *parent = nullptr);
     ~Executor();
     void run();
     void setQuery(QString qu);

@@ -28,7 +28,11 @@ void DbViewer::setModel(QAbstractItemModel *model)
     QTableView::setModel(model);
     DbTableModel *sqlModel = qobject_cast<DbTableModel *>(this->model());
     if (sqlModel){
+#if (QT_VERSION >= QT_VERSION_CHECK(6, 0, 0))
+        disconnect(this->selectionModel(),&QItemSelectionModel::currentRowChanged,this->model(),&QAbstractItemModel::submit);
+#else
         disconnect(selectionModel(), SIGNAL(currentRowChanged(QModelIndex,QModelIndex)),this->model(), SLOT(submit()));
+#endif
         connect(this->selectionModel(),SIGNAL(currentRowChanged(QModelIndex,QModelIndex)),this,SLOT(submit(QModelIndex,QModelIndex)));
     } else {
         setMenuEnabled(false);
@@ -48,8 +52,12 @@ void DbViewer::keyPressEvent(QKeyEvent *e)
     if (sqlModel && this->editTriggers()!=QAbstractItemView::NoEditTriggers){
         int c=sqlModel->rowCount();
         int row=currentIndex().row();
-
         switch (e->key()){
+            case Qt::Key_F2:
+            {
+                e->ignore();
+                break;
+            }
             case Qt::Key_Delete:
             {
                 if (e->modifiers()==Qt::ControlModifier) remove();

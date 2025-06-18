@@ -175,7 +175,6 @@ void DialogNew::writeRcp()
     QByteArray data, respData;
 
     QTextStream stream( &data );
-    stream.setCodec(QTextCodec::codecForName("UTF-8"));
     doc.save(stream,1);
 
     bool ok = Rels::instance()->sendRequest("dosage/recipes/"+QString::number(id_cex)+"/"+QString::number(id_rcp)+"/"+QString::number(mas)+"?dtm="+dt.toString("yyyy-MM-ddThh:mm:ss"),"POST",data,respData);

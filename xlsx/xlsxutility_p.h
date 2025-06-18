@@ -39,7 +39,9 @@
 #include "xlsxglobal.h"
 class QPoint;
 class QString;
+#if (QT_VERSION<0x060000)
 class QStringList;
+#endif
 class QColor;
 class QDateTime;
 class QTime;

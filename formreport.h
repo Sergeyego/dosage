@@ -3,7 +3,7 @@
 
 #include <QWidget>
 #include <QSortFilterProxyModel>
-#include "db/modelro.h"
+#include "modelro.h"
 
 namespace Ui {
 class FormReport;

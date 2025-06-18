@@ -45,6 +45,7 @@ DbMapper::DbMapper(QAbstractItemView *v, QWidget *parent) :
 
     connect(cmdNew,SIGNAL(clicked()),this,SLOT(slotNew()));
     connect(cmdWrite,SIGNAL(clicked()),this,SLOT(slotWrite()));
+    connect(cmdEdt,SIGNAL(clicked(bool)),this,SIGNAL(sigEdt()));
     connect(cmdEdt,SIGNAL(clicked()),this,SLOT(slotEdt()));
     connect(cmdEsc,SIGNAL(clicked()),this,SLOT(slotEsc()));
     connect(cmdDel,SIGNAL(clicked()),this,SLOT(slotDel()));

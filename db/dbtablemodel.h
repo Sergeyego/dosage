@@ -25,12 +25,13 @@ class DbSqlLikeModel : public QSortFilterProxyModel
 {
     Q_OBJECT
 public:
-    DbSqlLikeModel(DbSqlRelation *r, QObject *parent=nullptr);
+    DbSqlLikeModel(DbSqlRelation *r, QObject *parent = nullptr);
     void setAsync(bool b);
     void setLimit(int l);
     TableModel *originalModel();
     DbSqlRelation *getRelation();
     bool isInital();
+    bool isAsync();
 
 public slots:
     void startSearch(QString s);
@@ -46,7 +47,6 @@ private:
     TableModel *origModel;
 signals:
     void searchFinished(QString s);
-    void searchRequested(QString s);
 };
 
 class DbSqlRelation : public QObject
@@ -61,6 +61,7 @@ public:
     QString getSort();
     QString getFilter();
     QString getCurrentFilterRegExp();
+    bool getAsyncSearch();
     QString joinStr(QString tablename, QString tablecol);
     QString getDisplayValue(QVariant key, QString column=QString());
     DbSqlLikeModel *model();
@@ -69,6 +70,7 @@ public:
     void setFilter(QString f);
     void setFilterColumn(QString c);
     void setEditable(bool b);
+    void setAsyncSearch(bool b);
     bool isEditable();
     bool isInital();
 private:
@@ -82,6 +84,7 @@ private:
     DbSqlLikeModel *limModel;
     QString currentFilterRegExp;
     bool editable;
+    bool asyncSearch;
 public slots:
     void refreshModel();
     void setFilterRegExp(QString pattern);
@@ -124,9 +127,9 @@ public:
     void clear();
     void delRow(int pos);
     void setRow(QVector<colVal> &row, int pos);
+    QVector<colVal> row(int r) const;
 protected:
     void insertRow(int pos, QVector<colVal> &row);
-    QVector<colVal> row(int r) const;
     void setValue(const colVal &val, int row, int column);
     friend class DataEditor;
 private:
@@ -174,6 +177,7 @@ public:
     bool isAdd() const;
     bool isEdt() const;
     bool isEmpty() const;
+    bool isInsertable() const;
     virtual bool insertRow(int row, const QModelIndex &parent=QModelIndex());
     DbSqlRelation *sqlRelation(int column) const;
     QVariant::Type columnType(int column) const;
@@ -185,7 +189,9 @@ public:
     void setColumnFlags(int column, Qt::ItemFlags flags);
     QVariant defaultValue(int column) const;
     bool setDecimals(int column, int dec);
+    void setInsertable(bool b);
     QString name() const;
+    virtual void refreshRow(int row);
 
 protected:
     QString tableName;
@@ -200,6 +206,7 @@ private:
     MData *modelData;
     DataEditor *editor;
     bool block;
+    bool insertable;
     QSqlIndex pkList;
     QSqlRecord defaultRecord;
 

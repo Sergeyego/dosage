@@ -9,7 +9,6 @@
 #include <QAbstractItemView>
 #include <QAction>
 #include <QApplication>
-#include <QDesktopWidget>
 #include "dbrelationeditdialog.h"
 #include "dbtablemodel.h"
 #include "dbviewer.h"
@@ -50,7 +49,6 @@ signals:
     void sigActionEdtRel(const QModelIndex &index);
 
 private slots:
-    void blockSignal();
     void indexChanged(int n);
     void edtRel();
     void updData();

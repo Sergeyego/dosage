@@ -9,6 +9,7 @@
 #include <QMessageBox>
 #include <QDebug>
 #include <QSortFilterProxyModel>
+#include <QLocale>
 
 class ProxyDataModel : public QSortFilterProxyModel
 {

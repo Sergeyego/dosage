@@ -12,7 +12,7 @@ class TableModel : public QAbstractTableModel
     Q_OBJECT
 
 public:    
-    TableModel(QObject *parent=nullptr);
+    TableModel(QObject *parent = nullptr);
     QVariant data(const QModelIndex &index, int role) const;
     bool setData(const QModelIndex &index, const QVariant &value, int role);
     bool removeRow(int row, const QModelIndex &parent);
@@ -25,7 +25,6 @@ public:
     void clear();
     void setDecimal(int dec);
     void setDecimalForColumn(int section, int dec);
-    virtual bool insertRow(int row, const QModelIndex &parent=QModelIndex());
 
 
 protected:

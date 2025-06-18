@@ -446,7 +446,7 @@ void Format::setFontOutline(bool outline)
  */
 QString Format::fontName() const
 {
-    return stringProperty(FormatPrivate::P_Font_Name, QStringLiteral("Arial"));
+    return stringProperty(FormatPrivate::P_Font_Name, QStringLiteral("Calibri"));
 }
 
 /*!
@@ -454,7 +454,7 @@ QString Format::fontName() const
  */
 void Format::setFontName(const QString &name)
 {
-    setProperty(FormatPrivate::P_Font_Name, name, QStringLiteral("Arial"));
+    setProperty(FormatPrivate::P_Font_Name, name, QStringLiteral("Calibri"));
 }
 
 /*!

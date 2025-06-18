@@ -8,6 +8,7 @@ DbTableModel::DbTableModel(QString table, QObject *parent) :
     modelData = new MData(this);
     editor = new DataEditor(modelData,this);
     block=false;
+    insertable = true;
     pkList=QSqlDatabase::database().driver()->primaryIndex(tableName);
     defaultRecord=QSqlDatabase::database().driver()->record(tableName);
     //qDebug()<<pkList;
@@ -26,49 +27,49 @@ QVariant DbTableModel::data(const QModelIndex &index, int role) const
     QVariant origVal=modelData->value(index.row(),index.column()).val;
     QVariant::Type type=columnType(index.column());
     switch (role) {
-        case Qt::DisplayRole:
-            if (modelData->column(index.column())->sqlRelation){
-                value = modelData->value(index.row(),index.column()).disp;
-            } else {
-                if (type==QVariant::Date){
-                    value=origVal.toDate().toString("dd.MM.yy");
-                } else if (type==QVariant::DateTime){
-                    value=origVal.toDateTime().toString("dd.MM.yy hh:mm");
-                } else if (type==QVariant::Double){
-                    int dec=3;
-                    if (modelData->column(index.column())->validator){
-                        QDoubleValidator *doublevalidator = qobject_cast<QDoubleValidator*>(modelData->column(index.column())->validator);
-                        if (doublevalidator) dec=doublevalidator->decimals();
-                    }
-                    value=(origVal.isNull() || origVal.toString().isEmpty())? QString("") : QLocale().toString(origVal.toDouble(),'f',dec);
-                } else if (type==QVariant::Int) {
-                    value=(origVal.isNull() || origVal.toString().isEmpty())? QString("") : QLocale().toString(origVal.toInt());
-                } else if (type==QVariant::Bool){
-                    value=origVal.toBool()? QString(QString::fromUtf8("Да")) : QString(QString::fromUtf8("Нет"));
-                } else {
-                    value=origVal;
+    case Qt::DisplayRole:
+        if (modelData->column(index.column())->sqlRelation){
+            value = modelData->value(index.row(),index.column()).disp;
+        } else {
+            if (type==QVariant::Date){
+                value=origVal.toDate().toString("dd.MM.yy");
+            } else if (type==QVariant::DateTime){
+                value=origVal.toDateTime().toString("dd.MM.yy hh:mm");
+            } else if (type==QVariant::Double){
+                int dec=3;
+                if (modelData->column(index.column())->validator){
+                    QDoubleValidator *doublevalidator = qobject_cast<QDoubleValidator*>(modelData->column(index.column())->validator);
+                    if (doublevalidator) dec=doublevalidator->decimals();
                 }
+                value=(origVal.isNull() || origVal.toString().isEmpty())? QString("") : QLocale().toString(origVal.toDouble(),'f',dec);
+            } else if (type==QVariant::Int) {
+                value=(origVal.isNull() || origVal.toString().isEmpty())? QString("") : QLocale().toString(origVal.toInt());
+            } else if (type==QVariant::Bool){
+                value=origVal.toBool()? QString(QString::fromUtf8("Да")) : QString(QString::fromUtf8("Нет"));
+            } else {
+                value=origVal;
             }
-            break;
+        }
+        break;
 
-        case Qt::EditRole:
-            value=origVal;
-            break;
+    case Qt::EditRole:
+        value=origVal;
+        break;
 
-        case Qt::TextAlignmentRole:
-            value=((type==QVariant::Int || type==QVariant::Double || type==QVariant::LongLong) && !modelData->column(index.column())->sqlRelation)?
-            int(Qt::AlignRight | Qt::AlignVCenter) : int(Qt::AlignLeft | Qt::AlignVCenter);
-            break;
+    case Qt::TextAlignmentRole:
+        value=((type==QVariant::Int || type==QVariant::Double || type==QVariant::LongLong) && !modelData->column(index.column())->sqlRelation)?
+                    int(Qt::AlignRight | Qt::AlignVCenter) : int(Qt::AlignLeft | Qt::AlignVCenter);
+        break;
 
-        case Qt::CheckStateRole:
-            if (type==QVariant::Bool){
-                value=(origVal.toBool())? Qt::Checked :  Qt::Unchecked;
-            } else value=QVariant();
-            break;
+    case Qt::CheckStateRole:
+        if (type==QVariant::Bool){
+            value=(origVal.toBool())? Qt::Checked :  Qt::Unchecked;
+        } else value=QVariant();
+        break;
 
-        default:
-            value=QVariant();
-            break;
+    default:
+        value=QVariant();
+        break;
     }
     return value;
 }
@@ -201,9 +202,14 @@ bool DbTableModel::isEmpty() const
     return (rowCount()==1 && isAdd()) || (rowCount()<1);
 }
 
+bool DbTableModel::isInsertable() const
+{
+    return insertable;
+}
+
 bool DbTableModel::insertRow(int /*row*/, const QModelIndex& /*parent*/)
 {
-    if (block) return false;
+    if (block || !insertable) return false;
     bool ok=false;
     if (!editor->isAdd() && !editor->isEdt()){
         QVector<colVal> tmpRow;
@@ -285,9 +291,93 @@ bool DbTableModel::setDecimals(int column, int dec)
     return ok;
 }
 
+void DbTableModel::setInsertable(bool b)
+{
+    insertable=b;
+}
+
 QString DbTableModel::name() const
 {
     return tableName;
+}
+
+void DbTableModel::refreshRow(int row)
+{
+    QSqlQuery query;
+    query.setForwardOnly(true);
+    QString qu;
+    QString cols;
+    QString rels;
+    QString pkeys;
+    QVector<colVal> oldRow=modelData->row(row);
+    QVector<colVal> newRow;
+
+    for (int i=0; i<modelData->columnCount(); i++){
+        if (!cols.isEmpty()){
+            cols+=", ";
+        }
+        cols+=tableName+"."+modelData->column(i)->name;
+    }
+
+    for (int i=0; i<modelData->columnCount(); i++){
+        if (!cols.isEmpty()){
+            cols+=", ";
+        }
+        if (modelData->column(i)->sqlRelation){
+            if (!modelData->column(i)->defaultVal.val.isNull()){
+                modelData->column(i)->defaultVal.disp=modelData->column(i)->sqlRelation->getDisplayValue(modelData->column(i)->defaultVal.val);
+            }
+            cols+=modelData->column(i)->sqlRelation->getCDisplay();
+        } else {
+            cols+="NULL";
+        }
+        if (pkList.contains(modelData->column(i)->name)) {
+            if (!pkeys.isEmpty()){
+                pkeys+=" AND ";
+            }
+            pkeys+=(tableName+"."+modelData->column(i)->name +" = :pk"+modelData->column(i)->name);
+        }
+    }
+
+    qu="SELECT "+cols+" FROM "+tableName;
+
+    for (int i=0; i<modelData->columnCount(); i++){
+        if (modelData->column(i)->sqlRelation){
+            if (!modelData->column(i)->sqlRelation->isInital()){
+                modelData->column(i)->sqlRelation->refreshModel();
+            }
+            if (!rels.isEmpty()){
+                rels+=" ";
+            }
+            rels+=modelData->column(i)->sqlRelation->joinStr(tableName,modelData->column(i)->name);
+        }
+    }
+    if (!rels.isEmpty()) qu+=" "+rels;
+    if (!suffix.isEmpty()) qu+=" "+suffix;
+    if (!pkeys.isEmpty()) qu+=" WHERE "+pkeys;
+
+    query.prepare(qu);
+    for (int i=0; i<modelData->columnCount(); i++){
+        if (pkList.contains(modelData->column(i)->name)) {
+            query.bindValue(":pk"+modelData->column(i)->name,oldRow[i].val);
+        }
+    }
+
+    //qDebug()<<query.executedQuery()/*<<" "<<qu*/;
+    if (query.exec()){
+        if (query.next()){
+            for (int i=0; i<modelData->columnCount(); i++){
+                colVal c;
+                c.val=query.value(i);
+                c.disp=query.value(i+modelData->columnCount()).toString();
+                newRow.push_back(c);
+            }
+            modelData->setRow(newRow,row);
+            emit dataChanged(this->index(row,0),this->index(row,columnCount()-1));
+        }
+    } else {
+        QMessageBox::critical(nullptr,tr("Error"),query.lastError().text(),QMessageBox::Cancel);
+    }
 }
 
 bool DbTableModel::insertDb()
@@ -725,6 +815,7 @@ QVector<colVal> DataEditor::newRow()
 DbSqlRelation::DbSqlRelation(QString tableRel, QString cKey, QString cDisplay, QObject *parent) : QObject(parent), table(tableRel), key(cKey), display(cDisplay)
 {
     editable=false;
+    asyncSearch=true;
     alias=table;
     filterColumn=display;
     sort=getCDisplay();
@@ -767,6 +858,11 @@ QString DbSqlRelation::getFilter()
 QString DbSqlRelation::getCurrentFilterRegExp()
 {
     return currentFilterRegExp;
+}
+
+bool DbSqlRelation::getAsyncSearch()
+{
+    return asyncSearch;
 }
 
 QString DbSqlRelation::joinStr(QString tablename, QString tablecol)
@@ -823,6 +919,11 @@ void DbSqlRelation::setEditable(bool b)
     editable=b;
 }
 
+void DbSqlRelation::setAsyncSearch(bool b)
+{
+    asyncSearch=b;
+}
+
 bool DbSqlRelation::isEditable()
 {
     return editable;
@@ -855,8 +956,8 @@ DbSqlLikeModel::DbSqlLikeModel(DbSqlRelation *r, QObject *parent) : QSortFilterP
     inital=false;
     setSourceModel(origModel);
     setFilterKeyColumn(2);
-    setFilterRegExp(relation->getCurrentFilterRegExp());
-    connect(relation,SIGNAL(filterRegExpInstalled(QString)),this,SLOT(setFilterRegExp(QString)));
+    setFilterRegularExpression(relation->getCurrentFilterRegExp());
+    connect(relation,SIGNAL(filterRegExpInstalled(QString)),this,SLOT(setFilterRegularExpression(QString)));
 }
 
 void DbSqlLikeModel::setAsync(bool b)
@@ -884,14 +985,22 @@ bool DbSqlLikeModel::isInital()
     return inital;
 }
 
+bool DbSqlLikeModel::isAsync()
+{
+    return async;
+}
+
 void DbSqlLikeModel::startSearch(QString s)
 {
-    emit searchRequested(s);
+    inital=true;
     QString lim;
     QString srt;
     QString flt;
     QString pattern = s;
     pattern.replace("'","''");
+    pattern.replace("/","//");
+    pattern.replace("%","/%");
+    pattern.replace("_","/_");
 
     if (!relation->getFilter().isEmpty() || !s.isEmpty()){
         flt+=" WHERE ";
@@ -902,7 +1011,7 @@ void DbSqlLikeModel::startSearch(QString s)
             }
         }
         if (!s.isEmpty()){
-            flt+=relation->getCDisplay()+" ILIKE '"+pattern+"%'";
+            flt+=relation->getCDisplay()+" ILIKE '"+pattern+"%' ESCAPE '/'";
         }
     }
 
@@ -915,7 +1024,7 @@ void DbSqlLikeModel::startSearch(QString s)
 
     QString query="SELECT "+relation->getCKey()+", "+relation->getCDisplay()+", "+relation->getCFilter()+" FROM "+relation->getTable()+flt+srt+lim;
 
-    if (async && inital){
+    if (async){
         Executor *e = new Executor;
         e->setQuery(query);
         connect(e,SIGNAL(finished()),this,SLOT(queryFinished()));
@@ -939,7 +1048,6 @@ void DbSqlLikeModel::startSearch(QString s)
             invalidate();
             QMessageBox::critical(nullptr,tr("Error"),qu.lastError().text(),QMessageBox::Cancel);
         }
-        inital=true;
         emit searchFinished(s);
     }
 }
@@ -950,7 +1058,6 @@ void DbSqlLikeModel::queryFinished()
     if (e){
         origModel->setModelData(e->getData());
         QString s=e->property("path").toString();
-        inital=true;
         emit searchFinished(s);
         e->deleteLater();
     }

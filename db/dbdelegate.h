@@ -11,6 +11,7 @@
 #include <QLineEdit>
 #include <QCheckBox>
 #include <QLayout>
+#include <QItemDelegate>
 
 class DbDelegate : public QItemDelegate
 {

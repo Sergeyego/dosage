@@ -1301,11 +1301,11 @@ void Worksheet::saveToXmlFile(QIODevice *device) const
     writer.writeAttribute(QStringLiteral("draft"), (d->pageSetup.draft ? QStringLiteral("true") : QStringLiteral("false")));
     QString ccom;
     if (d->pageSetup.cellComments==XlsxPageSetup::atEnd){
-        ccom=QLatin1Literal("atEnd");
+        ccom=QLatin1String("atEnd");
     } else if (d->pageSetup.cellComments==XlsxPageSetup::asDisplayed){
-        ccom=QLatin1Literal("asDisplayed");
+        ccom=QLatin1String("asDisplayed");
     } else {
-        ccom=QLatin1Literal("none");
+        ccom=QLatin1String("none");
     }
     writer.writeAttribute(QStringLiteral("cellComments"), ccom);
     writer.writeAttribute(QStringLiteral("useFirstPageNumber"), (d->pageSetup.useFirstPageNumber ? QStringLiteral("true") : QStringLiteral("false")));
