@@ -31,7 +31,7 @@ FormDoz::FormDoz(QWidget *parent) :
     ui->tableViewDoz->setColumnHidden(0,true);
     ui->tableViewDoz->setColumnWidth(1,65);
     ui->tableViewDoz->setColumnWidth(2,50);
-    ui->tableViewDoz->setColumnWidth(3,135);
+    ui->tableViewDoz->setColumnWidth(3,140);
     ui->tableViewDoz->setColumnWidth(4,110);
     ui->tableViewDoz->setColumnWidth(5,60);
     ui->tableViewDoz->setColumnWidth(6,40);

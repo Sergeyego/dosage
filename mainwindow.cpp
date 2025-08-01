@@ -98,7 +98,6 @@ void MainWindow::newFormRepBunk()
 void MainWindow::loadSettings()
 {
     QSettings settings("szsm", QApplication::applicationName());
-    this->restoreGeometry(settings.value("main_geometry").toByteArray());
     this->restoreState(settings.value("main_state").toByteArray());
     QString opentab=settings.value("main_opentab").toString();
     QString current=settings.value("main_currenttab").toString();
@@ -112,6 +111,7 @@ void MainWindow::loadSettings()
         }
     }
     setActiveSubWindow(current);
+    this->restoreGeometry(settings.value("main_geometry").toByteArray());
 }
 
 void MainWindow::saveSettings()
