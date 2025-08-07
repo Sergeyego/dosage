@@ -42,8 +42,10 @@ public:
 private:
     CustomCompletter *sqlCompleter;
     colVal currentData;
+    colVal saveData;
     QAction *actionEdt;
     QModelIndex dbModelIndex;
+    bool isReset;
 
 signals:
     void sigActionEdtRel(const QModelIndex &index);
@@ -52,6 +54,8 @@ private slots:
     void indexChanged(int n);
     void edtRel();
     void updData();
+    void mAboutReset();
+    void mReset();
 
 public slots:
     void setCurrentData(colVal data);

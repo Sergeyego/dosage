@@ -6,6 +6,7 @@ DbComboBox::DbComboBox(QWidget *parent) : QComboBox(parent)
     sqlCompleter = new CustomCompletter(this);
     sqlCompleter->setWidget(this);
     this->setCompleter(nullptr);
+    isReset=false;
 
     actionEdt = new QAction(QIcon(":images/key.png"),tr("Редактировать"),this);
 
@@ -51,6 +52,8 @@ void DbComboBox::setModel(QAbstractItemModel *model)
         setModelColumn(1);
 
         connect(sqlModel,SIGNAL(searchFinished(QString)),this,SLOT(updData()));
+        connect(sqlModel,SIGNAL(modelAboutToBeReset()),this,SLOT(mAboutReset()));
+        connect(sqlModel,SIGNAL(modelReset()),this,SLOT(mReset()));
 
         DbSqlLikeModel *likeModel = new DbSqlLikeModel(sqlModel->getRelation(),this);
         likeModel->setAsync(sqlModel->getRelation()->getAsyncSearch());
@@ -69,7 +72,7 @@ void DbComboBox::setModel(QAbstractItemModel *model)
 
 void DbComboBox::indexChanged(int n)
 {
-    if (n>=0){
+    if (n>=0 && !isReset){
         colVal newVal;
         newVal.val=this->model()->data(this->model()->index(n,0),Qt::EditRole);
         newVal.disp=this->model()->data(this->model()->index(n,1),Qt::EditRole).toString();
@@ -87,6 +90,18 @@ void DbComboBox::updData()
     this->blockSignals(true);
     this->setCurrentData(currentData);
     this->blockSignals(false);
+}
+
+void DbComboBox::mAboutReset()
+{
+    isReset=true;
+    saveData=currentData;
+}
+
+void DbComboBox::mReset()
+{
+    isReset=false;
+    setCurrentData(saveData);
 }
 
 void DbComboBox::setCurrentData(colVal data)
